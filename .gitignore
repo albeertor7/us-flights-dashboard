@@ -1,6 +1,9 @@
 # Raw / heavy intermediate data — regenerate via src/01_data_pipeline.py
 # (the small agg_*.parquet files above ARE tracked, so the dashboard runs out of the box)
 data/raw/
+data/bts_2023_raw.parquet
+data/bts_2023_clean.parquet
+data/airports_us.parquet
 figures/
 
 # Python
