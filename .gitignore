@@ -1,0 +1,14 @@
+# Raw / heavy intermediate data — regenerate via src/01_data_pipeline.py
+# (the small agg_*.parquet files above ARE tracked, so the dashboard runs out of the box)
+data/raw/
+figures/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+venv/
+.venv/
+
+# OS
+.DS_Store
