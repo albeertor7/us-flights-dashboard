@@ -657,6 +657,7 @@ def build_predictive_chart(df):
     return fig
 
 # ── SCATTER PROPAGATION ────────────────────────────────────
+
 def build_scatter_propagation(df):
     """DEP_DELAY vs ARR_DELAY scatter with regression line, colored by airline."""
     if df.empty or len(df) < 500:
@@ -737,6 +738,7 @@ def build_scatter_propagation(df):
     return fig
 
 # ── SEVERE DELAY CHART ─────────────────────────────────────
+
 def build_severe_delay_chart(df):
     """Horizontal bar: % of flights with ARR_DELAY > 60 min by airline."""
     if df.empty or len(df) < 100:
