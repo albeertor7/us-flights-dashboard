@@ -1,0 +1,1190 @@
+<script>(function(){'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
+function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
+p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+
+ MIT License
+
+ Copyright (c) 2017-2023 W.Y.
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+*/
+function u(a,b){const d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);const c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{let a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){const b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
+function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{const c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
+function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
+function D(a,b,d){return t(function*(){const c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
+var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{const c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
+function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){const c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);const e=yield c.blob();return new Promise((f,g)=>{const k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){let c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
+function L(a,b,d){return t(function*(){const c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());let e;try{const f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){const b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");const c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
+function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
+function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;let c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
+return b})}function ea(a,b,d){const c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{let g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
+function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
+function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){const g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
+c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
+function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){const b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
+function la(a,b,d,c){return t(function*(){try{const e=d?(new URL(b,d||void 0)).toString():b;let f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){const [c,,e]=ia.exec(d)||[];if(!e)return"";if(e===b)return`src: ${c};`}}):a}
+function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;const c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c;const e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
+function oa(a,b){return t(function*(){const d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
+function pa(a,b){return t(function*(){const d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){let d=a.cssText;const c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){let g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
+function X(a){if(a==null)return[];const b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
+d.lastIndex;b.push(e[0])}return b}
+function qa(a,b){return t(function*(){const d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Da){}})).catch(()=>{});c.push(f)}})}catch(f){const g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
+{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
+function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}const d=new Set;b(a);return d}function ua(a,b){return t(function*(){const d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
+function va(a,b){return t(function*(){const d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){const c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){const {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
+function xa(a,b={}){return t(function*(){const {width:d,height:c}=A(a,b);var e=yield wa(a,b);e=yield B(e);const f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=
+16384));f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function ya(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const za=["gemini.google.com","corp.google.com","proxy.googlers.com"];function Y(){return document.body.querySelectorAll('[class*="animate"]').length>0}function Z(a){return t(function*(){try{return yield ya(a,{h:a.offsetWidth,g:a.offsetHeight})}catch(d){var b=a.offsetHeight;const c=document.createElement("canvas");c.width=a.offsetWidth;c.height=b;return c.toDataURL("image/png")}})}
+function Aa(){return t(function*(){const a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
+function Ba(a){return t(function*(){let b=document.body;if(Y()){var d=yield Aa();b=d;document.body.appendChild(d)}d=yield Z(b);Y()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}function Ca(a){return t(function*(){const b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}
+window.addEventListener("message",a=>t(function*(){if(za.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ba(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ca(a)))}}));
+})();</script><script>(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script>
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.i=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.g=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);const f={type:"send",data:new Uint8Array(a)};let g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){const f=new MessageChannel;t=f.port1;const g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}const c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.h="";let l=0,t=null,r=null,q=[];const F=new TextEncoder,
+G=new TextDecoder;c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{let a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});const I=function(){let a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{const g=Math.random()*
+16|0;return(f==="x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;
+(g=t)==null||g.postMessage(a)}};Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);const C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");const E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{const k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script>((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-2.5-flash-image-preview","imageTransformModelName":"gemini-3-pro-image-preview-11-2025","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"]})</script><script>(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus Reid - The Flight Protocol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;family=Poppins:wght@500;700;900&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #05080b;
+            --primary: #3b82f6; 
+            --success: #10b981; 
+            --danger: #ef4444; 
+            --warning: #f59e0b; 
+            --text-light: #f8fafc;
+            --card-bg: rgba(15, 23, 42, 0.9);
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* --- DECORACIÓN DE FONDO (AVIONES) --- */
+        .bg-decoration {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-plane {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.03); 
+            fill: currentColor;
+        }
+
+        .flight-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            height: 1px;
+            width: 100%;
+            transform-origin: left;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem 6rem;
+            z-index: 10;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+        .slide.active .fade-up { opacity: 1; transform: translateY(0); }
+        .st-1 { transition-delay: 0.1s; }
+        .st-2 { transition-delay: 0.2s; }
+        .st-3 { transition-delay: 0.3s; }
+        .st-4 { transition-delay: 0.4s; }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover { 
+            background: var(--primary); 
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); 
+        }
+
+        .progress-segment {
+            height: 5px;
+            background: rgba(255,255,255,0.05);
+            flex-grow: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .heatmap-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+        .heatmap-cell {
+            aspect-ratio: 1.1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-weight: 800;
+            transition: all 0.2s ease;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .heatmap-cell .val { font-size: 1.1rem; }
+        .heatmap-cell .day-tag { 
+            font-size: 0.6rem; 
+            position: absolute; 
+            bottom: 4px; 
+            opacity: 0.6;
+            text-transform: uppercase;
+        }
+
+        .donut-segment { transition: stroke-dasharray 0.6s ease; }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.bottom-12{bottom:3rem}.left-0{left:0px}.left-12{left:3rem}.right-12{right:3rem}.top-0{top:0px}.z-50{z-index:50}.col-span-4{grid-column:span 4 / span 4}.col-span-5{grid-column:span 5 / span 5}.col-span-7{grid-column:span 7 / span 7}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:0.25rem}.mt-14{margin-top:3.5rem}.mt-16{margin-top:4rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-12{height:3rem}.h-14{height:3.5rem}.h-2{height:0.5rem}.h-32{height:8rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-8{height:2rem}.h-96{height:24rem}.h-full{height:100%}.w-12{width:3rem}.w-14{width:3.5rem}.w-3\/5{width:60%}.w-32{width:8rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-8{width:2rem}.w-96{width:24rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-6xl{max-width:72rem}.max-w-7xl{max-width:80rem}.max-w-xl{max-width:36rem}.flex-shrink-0{flex-shrink:0}.shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-rotate-90{--tw-rotate:-90deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes bounce{0%, 100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}.animate-bounce{animation:bounce 1s infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.cursor-pointer{cursor:pointer}.grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}.grid-cols-7{grid-template-columns:repeat(7, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-12{gap:3rem}.gap-16{gap:4rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-l-8{border-left-width:8px}.border-r-4{border-right-width:4px}.border-t-4{border-top-width:4px}.border-t-8{border-top-width:8px}.border-amber-400{--tw-border-opacity:1;border-color:rgb(251 191 36 / var(--tw-border-opacity, 1))}.border-blue-600{--tw-border-opacity:1;border-color:rgb(37 99 235 / var(--tw-border-opacity, 1))}.border-blue-600\/30{border-color:rgb(37 99 235 / 0.3)}.border-blue-600\/50{border-color:rgb(37 99 235 / 0.5)}.border-emerald-500{--tw-border-opacity:1;border-color:rgb(16 185 129 / var(--tw-border-opacity, 1))}.border-red-500{--tw-border-opacity:1;border-color:rgb(239 68 68 / var(--tw-border-opacity, 1))}.border-red-600{--tw-border-opacity:1;border-color:rgb(220 38 38 / var(--tw-border-opacity, 1))}.border-red-600\/20{border-color:rgb(220 38 38 / 0.2)}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-yellow-500{--tw-border-opacity:1;border-color:rgb(234 179 8 / var(--tw-border-opacity, 1))}.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-blue-600\/10{background-color:rgb(37 99 235 / 0.1)}.bg-blue-600\/20{background-color:rgb(37 99 235 / 0.2)}.bg-blue-600\/5{background-color:rgb(37 99 235 / 0.05)}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-red-600\/10{background-color:rgb(220 38 38 / 0.1)}.bg-slate-500{--tw-bg-opacity:1;background-color:rgb(100 116 139 / var(--tw-bg-opacity, 1))}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.p-10{padding:2.5rem}.p-3{padding:0.75rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-6xl{font-size:3.75rem;line-height:1}.text-7xl{font-size:4.5rem;line-height:1}.text-8xl{font-size:6rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[9rem\]{font-size:9rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-\[0\.85\]{line-height:0.85}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-\[0\.2em\]{letter-spacing:0.2em}.tracking-\[0\.3em\]{letter-spacing:0.3em}.tracking-\[0\.4em\]{letter-spacing:0.4em}.tracking-tight{letter-spacing:-0.025em}.tracking-tighter{letter-spacing:-0.05em}.tracking-widest{letter-spacing:0.1em}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-blue-500{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-red-600{--tw-text-opacity:1;color:rgb(220 38 38 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-30{opacity:0.3}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_0_15px_\#2563eb\]{--tw-shadow:0 0 15px #2563eb;--tw-shadow-colored:0 0 15px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_0_15px_\#fbbf24\]{--tw-shadow:0 0 15px #fbbf24;--tw-shadow-colored:0 0 15px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-blue-900\/20{--tw-shadow-color:rgb(30 58 138 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:-translate-y-2:hover{--tw-translate-y:-0.5rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-blue-600:hover{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.hover\:bg-white\/10:hover{background-color:rgb(255 255 255 / 0.1)}.group:hover .group-hover\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}</style></head>
+<body>
+
+    <!-- Capa de decoración de fondo -->
+    <div class="bg-decoration">
+        <svg class="bg-plane" style="top: 10%; left: 5%; width: 150px; transform: rotate(-15deg);" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path></svg>
+        <svg class="bg-plane" style="top: 40%; right: 8%; width: 100px; transform: rotate(10deg);" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path></svg>
+        <svg class="bg-plane" style="bottom: 15%; left: 12%; width: 120px; transform: rotate(45deg);" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path></svg>
+        <div class="flight-line" style="top: 25%; transform: rotate(-5deg);"></div>
+        <div class="flight-line" style="top: 65%; transform: rotate(15deg);"></div>
+        <div class="flight-line" style="top: 85%; transform: rotate(-10deg);"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center font-black text-xl italic shadow-lg shadow-blue-900/20">M</div>
+            <div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Aviation Analytics</div>
+                <div class="text-base font-bold text-white">The Marcus Protocol</div>
+            </div>
+        </div>
+        
+        <button onclick="downloadCode()" class="px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-bold hover:bg-white/10 transition-all flex items-center gap-3 backdrop-blur-md">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            DOWNLOAD PRESENTATION
+        </button>
+    </header>
+
+    <main class="relative w-full h-full">
+
+        <!-- 01 HOOK - REDISEÑADO: MÁS LLAMATIVO -->
+        <section class="slide" id="slide-1">
+            <div class="flex flex-col items-center text-center max-w-6xl w-full">
+                <div class="fade-up st-1 mb-4">
+                    <span class="px-4 py-1.5 rounded-full bg-blue-600/20 text-blue-400 text-xs font-black tracking-widest border border-blue-600/30">USER CASE: MARCUS REID</span>
+                </div>
+                <h1 class="text-[9rem] font-black leading-[0.85] tracking-tighter fade-up st-2 mb-8 uppercase italic">
+                    Lost in the <br><span class="text-blue-500">System.</span>
+                </h1>
+                <div class="flex items-center gap-12 fade-up st-3">
+                    <div class="w-32 h-32 flex-shrink-0">
+                        <svg class="w-full h-full" viewBox="0 0 200 200" id="marcus-svg-1">
+                <g transform="translate(0, 0)">
+                    <rect x="90" y="80" width="20" height="30" fill="#f5c7a9" rx="10"></rect>
+                    <circle cx="100" cy="65" r="30" fill="#f5c7a9"></circle>
+                    <path d="M 70 70 Q 100 110 130 70 Q 130 95 100 100 Q 70 95 70 70" fill="#64748b"></path>
+                    <circle cx="88" cy="62" r="3" fill="#0f172a"></circle>
+                    <circle cx="112" cy="62" r="3" fill="#0f172a"></circle>
+                    <path d="M 92 82 Q 100 75 108 82" fill="none" stroke="#ca8a04" stroke-width="2"></path>
+                    <path d="M 85 95 L 115 95 L 125 300 L 75 300 Z" fill="#334155"></path>
+                    <path d="M 85 95 L 100 110 L 115 95 Z" fill="white"></path>
+                    <path d="M 96 110 L 104 110 L 108 170 L 100 180 L 92 170 Z" fill="#991b1b"></path>
+                </g></svg>
+                    </div>
+                    <div class="text-left max-w-xl">
+                        <p class="text-3xl text-white font-medium leading-snug">"I fly 80 times a year. After missing 3 connections in a row, I realized I wasn't traveling... <span class="text-red-500 font-bold">I was gambling."</span></p>
+                    </div>
+                </div>
+                <div class="mt-16 animate-bounce text-slate-600 fade-up st-4">
+                    <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 REALIZATION - KPIS MOVIDOS AQUÍ -->
+        <section class="slide" id="slide-2">
+            <div class="max-w-7xl w-full flex flex-col">
+                <div class="text-center mb-16 fade-up st-1">
+                    <h2 class="text-6xl font-black mb-4">"It's Not Bad Luck.<br><span class="text-red-600">It's a Feature."</span></h2>
+                    <p class="text-slate-400 text-xl max-w-2xl mx-auto italic">Marcus analyzed the macro numbers to understand his personal chaos.</p>
+                </div>
+
+                <!-- Los KPIs originales del slide 1 ahora viven aquí en combinación con los promedios -->
+                <div class="grid grid-cols-12 gap-6">
+                    <!-- Fila Superior: Datos de Sistema -->
+                    <div class="col-span-4 glass-card p-8 border-t-4 border-red-500 fade-up st-1">
+                        <div class="text-6xl font-black mb-2 text-red-500">256.8M</div>
+                        <div class="text-xs text-slate-400 uppercase font-black tracking-widest">Lost Pax Hours</div>
+                        <p class="text-[10px] text-slate-500 mt-2">Annual impact of system inefficiency</p>
+                    </div>
+                    <div class="col-span-4 glass-card p-8 border-t-4 border-red-500 fade-up st-2">
+                        <div class="text-6xl font-black mb-2 text-red-500">1 in 5</div>
+                        <div class="text-xs text-slate-400 uppercase font-black tracking-widest">Delayed Flights</div>
+                        <p class="text-[10px] text-slate-500 mt-2">Historical frequency of disruptions</p>
+                    </div>
+                    <div class="col-span-4 glass-card p-8 border-t-4 border-emerald-500 fade-up st-3">
+                        <div class="text-6xl font-black mb-2 text-emerald-500">79.4%</div>
+                        <div class="text-xs text-slate-400 uppercase font-black tracking-widest">System Punctuality</div>
+                        <div class="mt-4 h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-500" style="width: 79.4%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Fila Inferior: Detalles de Retraso -->
+                    <div class="col-span-4 glass-card p-6 flex flex-col items-center justify-center fade-up st-2">
+                        <div class="text-4xl font-black mb-1 text-white">6.6 min</div>
+                        <div class="text-blue-500 font-bold uppercase tracking-tighter text-[10px]">Average Delay</div>
+                    </div>
+                    <div class="col-span-4 glass-card p-6 flex flex-col items-center justify-center bg-blue-600/10 border-blue-600/50 fade-up st-3">
+                        <div class="text-4xl font-black mb-1 text-white">20.6%</div>
+                        <div class="text-blue-400 font-bold uppercase tracking-tighter text-[10px]">Flights Affected</div>
+                    </div>
+                    <div class="col-span-4 glass-card p-6 flex flex-col items-center justify-center fade-up st-4">
+                        <div class="text-4xl font-black mb-1 text-white">1.3%</div>
+                        <div class="text-blue-500 font-bold uppercase tracking-tighter text-[10px]">Cancellations</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 WHERE -->
+        <section class="slide" id="slide-3">
+            <div class="grid grid-cols-12 gap-12 max-w-7xl w-full">
+                <div class="col-span-5 fade-up st-1 flex flex-col justify-center">
+                    <h2 class="text-5xl font-black mb-8 leading-tight">Marcus Goes<br>Detective</h2>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-center glass-card p-5 border-r-4 border-red-600">
+                            <span class="font-bold text-lg">Orlando (MCO)</span>
+                            <span class="text-red-500 font-black text-xl">+15.8m</span>
+                        </div>
+                        <div class="flex justify-between items-center glass-card p-5 border-r-4 border-red-600">
+                            <span class="font-bold text-lg">Newark (EWR)</span>
+                            <span class="text-red-500 font-black text-xl">+15.1m</span>
+                        </div>
+                        <div class="flex justify-between items-center glass-card p-5 border-r-4 border-red-600">
+                            <span class="font-bold text-lg">Miami (MIA)</span>
+                            <span class="text-red-500 font-black text-xl">+14.4m</span>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-red-600/10 border border-red-600/20 rounded-2xl">
+                        <div class="text-[10px] font-black text-red-500 uppercase mb-2 tracking-[0.2em]">CRITICAL WINDOW</div>
+                        <div class="text-2xl font-bold">Fri/Sun Evenings</div>
+                        <p class="text-sm text-slate-400 mt-2">"I always booked Friday afternoons. I was walking into a trap."</p>
+                    </div>
+                </div>
+                <div class="col-span-7 fade-up st-2">
+                    <div class="glass-card p-8 h-full flex flex-col shadow-2xl">
+                        <div class="flex justify-between items-center mb-8">
+                            <div>
+                                <h3 class="font-black text-2xl text-blue-400 uppercase tracking-tight">Risk Heatmap</h3>
+                                <p class="text-xs text-slate-500 font-bold uppercase mt-1">Probability of Delay (Minutes)</p>
+                            </div>
+                        </div>
+                        <div class="heatmap-container" id="heatmap"><div class="heatmap-cell" style="background-color: rgba(16, 185, 129, 0.5);"><span class="val">-2</span><span class="day-tag">L</span></div><div class="heatmap-cell" style="background-color: rgba(16, 185, 129, 0.6);"><span class="val">-3</span><span class="day-tag">M</span></div><div class="heatmap-cell" style="background-color: rgba(16, 185, 129, 0.4);"><span class="val">-1</span><span class="day-tag">X</span></div><div class="heatmap-cell" style="background-color: rgba(16, 185, 129, 0.6);"><span class="val">-3</span><span class="day-tag">J</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.4);"><span class="val">+2</span><span class="day-tag">V</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.65);"><span class="val">+5</span><span class="day-tag">S</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.8);"><span class="val">+8</span><span class="day-tag">D</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.3);"><span class="val">+1</span><span class="day-tag">L</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.2);"><span class="val">0</span><span class="day-tag">M</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.4);"><span class="val">+2</span><span class="day-tag">X</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.3);"><span class="val">+1</span><span class="day-tag">J</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.6);"><span class="val">+4</span><span class="day-tag">V</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.75);"><span class="val">+7</span><span class="day-tag">S</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.85);"><span class="val">+9</span><span class="day-tag">D</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.5);"><span class="val">+3</span><span class="day-tag">L</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.4);"><span class="val">+2</span><span class="day-tag">M</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.6);"><span class="val">+4</span><span class="day-tag">X</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.5);"><span class="val">+3</span><span class="day-tag">J</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.7);"><span class="val">+6</span><span class="day-tag">V</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+12</span><span class="day-tag">S</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+14</span><span class="day-tag">D</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.65);"><span class="val">+5</span><span class="day-tag">L</span></div><div class="heatmap-cell" style="background-color: rgba(251, 191, 36, 0.6);"><span class="val">+4</span><span class="day-tag">M</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.7);"><span class="val">+6</span><span class="day-tag">X</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.65);"><span class="val">+5</span><span class="day-tag">J</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.85);"><span class="val">+9</span><span class="day-tag">V</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+15</span><span class="day-tag">S</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+17</span><span class="day-tag">D</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.8);"><span class="val">+8</span><span class="day-tag">L</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.75);"><span class="val">+7</span><span class="day-tag">M</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.85);"><span class="val">+9</span><span class="day-tag">X</span></div><div class="heatmap-cell" style="background-color: rgba(220, 38, 38, 0.8);"><span class="val">+8</span><span class="day-tag">J</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+12</span><span class="day-tag">V</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+18</span><span class="day-tag">S</span></div><div class="heatmap-cell" style="background-color: rgb(220, 38, 38);"><span class="val">+19</span><span class="day-tag">D</span></div></div>
+                        <div class="mt-6 grid grid-cols-7 gap-2 text-center">
+                            <span class="text-xs font-black text-slate-600">MON</span>
+                            <span class="text-xs font-black text-slate-600">TUE</span>
+                            <span class="text-xs font-black text-slate-600">WED</span>
+                            <span class="text-xs font-black text-slate-600">THU</span>
+                            <span class="text-xs font-black text-slate-600">FRI</span>
+                            <span class="text-xs font-black text-slate-600">SAT</span>
+                            <span class="text-xs font-black text-slate-600">SUN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 WHY -->
+        <section class="slide" id="slide-4">
+            <div class="grid grid-cols-2 gap-12 max-w-7xl w-full items-center">
+                <div class="fade-up st-1 flex justify-center">
+                    <div class="relative w-96 h-96">
+                        <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90">
+                            <circle cx="18" cy="18" r="16" fill="transparent" stroke="rgba(255,255,255,0.05)" stroke-width="4"></circle>
+                            <circle cx="18" cy="18" r="16" fill="transparent" stroke="#2563eb" stroke-width="4.5" stroke-dasharray="40 100" class="donut-segment"></circle>
+                            <circle cx="18" cy="18" r="16" fill="transparent" stroke="#fbbf24" stroke-width="4.5" stroke-dasharray="27 100" stroke-dashoffset="-40" class="donut-segment"></circle>
+                            <circle cx="18" cy="18" r="16" fill="transparent" stroke="#475569" stroke-width="4.5" stroke-dasharray="33 100" stroke-dashoffset="-67" class="donut-segment"></circle>
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <div class="text-7xl font-black text-white">67%</div>
+                            <div class="text-xs font-bold text-blue-500 uppercase tracking-[0.2em] mt-2">Airline Fault</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-up st-2">
+                    <h2 class="text-5xl font-black mb-8">The Verdict</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-6 p-5 glass-card border-l-8 border-blue-600">
+                            <div class="w-5 h-5 rounded-full bg-blue-600 shadow-[0_0_15px_#2563eb]"></div>
+                            <span class="flex-grow text-lg font-bold">Late Aircraft Arrival</span>
+                            <span class="font-black text-blue-400 text-2xl">40%</span>
+                        </div>
+                        <div class="flex items-center gap-6 p-5 glass-card border-l-8 border-amber-400">
+                            <div class="w-5 h-5 rounded-full bg-amber-400 shadow-[0_0_15px_#fbbf24]"></div>
+                            <span class="flex-grow text-lg font-bold">Airline Operations</span>
+                            <span class="font-black text-amber-400 text-2xl">27%</span>
+                        </div>
+                        <div class="flex items-center gap-6 opacity-30 px-6">
+                            <div class="w-5 h-5 rounded-full bg-slate-500"></div>
+                            <span class="flex-grow text-lg font-bold">National System</span>
+                            <span class="font-black text-xl">22%</span>
+                        </div>
+                        <div class="flex items-center gap-6 opacity-30 px-6">
+                            <div class="w-5 h-5 rounded-full bg-slate-500"></div>
+                            <span class="flex-grow text-lg font-bold">Weather</span>
+                            <span class="font-black text-xl">11%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 WHO -->
+        <section class="slide" id="slide-5">
+            <div class="max-w-7xl w-full">
+                <div class="text-center mb-12 fade-up st-1">
+                    <h2 class="text-5xl font-black mb-4">The Performance Lab</h2>
+                    <div class="inline-flex gap-6 p-3 bg-white/5 rounded-full px-10 border border-white/10 text-xs font-black text-blue-500 uppercase tracking-widest">
+                        <span>Punctuality (50%)</span> <span class="text-slate-700">|</span> <span>Delays (30%)</span> <span class="text-slate-700">|</span> <span>Cancellations (20%)</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-6 gap-5 fade-up st-2">
+                    <div class="glass-card p-8 text-center border-t-8 border-emerald-500">
+                        <div class="text-xs text-slate-500 font-black mb-2 tracking-widest">DELTA</div>
+                        <div class="text-5xl font-black">84</div>
+                    </div>
+                    <div class="glass-card p-8 text-center border-t-8 border-emerald-500">
+                        <div class="text-xs text-slate-500 font-black mb-2 tracking-widest">ALASKA</div>
+                        <div class="text-5xl font-black">82</div>
+                    </div>
+                    <div class="glass-card p-8 text-center border-t-8 border-yellow-500">
+                        <div class="text-xs text-slate-500 font-black mb-2 tracking-widest">UNITED</div>
+                        <div class="text-5xl font-black">76</div>
+                    </div>
+                    <div class="glass-card p-8 text-center border-t-8 border-yellow-500">
+                        <div class="text-xs text-slate-500 font-black mb-2 tracking-widest">SOUTHWEST</div>
+                        <div class="text-5xl font-black">76</div>
+                    </div>
+                    <div class="glass-card p-8 text-center border-t-8 border-red-600">
+                        <div class="text-xs text-slate-500 font-black mb-2 tracking-widest">JETBLUE</div>
+                        <div class="text-5xl font-black text-red-600">54</div>
+                    </div>
+                    <div class="glass-card p-8 text-center border-t-8 border-red-600">
+                        <div class="text-xs text-slate-500 font-black mb-2 tracking-widest">FRONTIER</div>
+                        <div class="text-5xl font-black text-red-600">41</div>
+                    </div>
+                </div>
+
+                <div class="mt-14 flex items-center justify-between glass-card p-10 fade-up st-3 bg-blue-600/5">
+                    <div class="w-3/5">
+                        <h4 class="text-3xl font-black mb-3 italic">"Reliability Gap"</h4>
+                        <p class="text-slate-400 text-xl leading-relaxed">That saving of a few dollars had a hidden 43-point reliability penalty. It cost Marcus dozens of hours.</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs font-black text-slate-500 mb-2 tracking-[0.3em] uppercase">Delta vs Frontier</div>
+                        <div class="text-8xl font-black text-blue-600">43pts</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 DOMINO -->
+        <section class="slide active" id="slide-6">
+            <div class="grid grid-cols-2 gap-16 max-w-7xl items-center">
+                <div class="fade-up st-1">
+                    <h2 class="text-5xl font-black mb-8">The Domino Effect</h2>
+                    <div class="glass-card p-10 mb-8 border-l-8 border-blue-600">
+                        <div class="flex items-center justify-around gap-8">
+                            <div class="text-center">
+                                <div class="text-xs text-slate-500 mb-2 uppercase font-black tracking-widest">DEPARTURE</div>
+                                <div class="text-4xl font-black">+30 min</div>
+                            </div>
+                            <div class="text-blue-600">
+                                <svg class="w-12 h-12 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xs text-slate-500 mb-2 uppercase font-black tracking-widest">ARRIVAL</div>
+                                <div class="text-4xl font-black text-red-600">+28 min</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-lg leading-relaxed">Airlines almost <span class="text-white font-bold">never</span> "make up time" in the air. A late departure is a physical sentence for the arrival.</p>
+                </div>
+                <div class="fade-up st-2 flex flex-col gap-4">
+                    <div class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Prob. of Severe Delay (&gt;45m)</div>
+                    <div class="glass-card p-6 flex justify-between items-center border-l-8 border-red-600">
+                        <span class="font-bold text-xl">JetBlue</span>
+                        <span class="text-4xl font-black">13.8%</span>
+                    </div>
+                    <div class="glass-card p-6 flex justify-between items-center border-l-8 border-red-600">
+                        <span class="font-bold text-xl">Frontier</span>
+                        <span class="text-4xl font-black">12.3%</span>
+                    </div>
+                    <div class="glass-card p-6 flex justify-between items-center border-l-8 border-emerald-500">
+                        <span class="font-bold text-xl">Delta</span>
+                        <span class="text-4xl font-black">5.5%</span>
+                    </div>
+                    <div class="glass-card p-6 flex justify-between items-center border-l-8 border-emerald-500">
+                        <span class="font-bold text-xl">Alaska</span>
+                        <span class="text-4xl font-black">4.3%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 TOOL -->
+        <section class="slide" id="slide-7">
+            <div class="max-w-6xl text-center fade-up st-1">
+                <h2 class="text-6xl font-black mb-8">Navigation Strategy</h2>
+                <p class="text-2xl text-slate-400 mb-16 max-w-3xl mx-auto">Turning 10 years of aviation metrics into a personal survival guide.</p>
+                <div class="grid grid-cols-4 gap-8">
+                    <div class="glass-card p-10 hover:bg-blue-600 transition-all cursor-pointer group hover:-translate-y-2">
+                        <div class="text-blue-500 mb-6 flex justify-center group-hover:text-white transition"><svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 7m0 10V7m0 0L9 4"></path></svg></div>
+                        <div class="font-black uppercase text-xs tracking-[0.2em]">Network Map</div>
+                    </div>
+                    <div class="glass-card p-10 hover:bg-blue-600 transition-all cursor-pointer group hover:-translate-y-2">
+                        <div class="text-blue-500 mb-6 flex justify-center group-hover:text-white transition"><svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+                        <div class="font-black uppercase text-xs tracking-[0.2em]">FRI Engine</div>
+                    </div>
+                    <div class="glass-card p-10 hover:bg-blue-600 transition-all cursor-pointer group hover:-translate-y-2">
+                        <div class="text-blue-500 mb-6 flex justify-center group-hover:text-white transition"><svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
+                        <div class="font-black uppercase text-xs tracking-[0.2em]">Heatmap View</div>
+                    </div>
+                    <div class="glass-card p-10 hover:bg-blue-600 transition-all cursor-pointer group hover:-translate-y-2">
+                        <div class="text-blue-500 mb-6 flex justify-center group-hover:text-white transition"><svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div>
+                        <div class="font-black uppercase text-xs tracking-[0.2em]">Cost Analysis</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 08 FINAL -->
+        <section class="slide" id="slide-8">
+            <div class="grid grid-cols-12 gap-16 max-w-7xl w-full items-center">
+                <div class="col-span-7 fade-up st-1">
+                    <h2 class="text-7xl font-black mb-10 leading-tight">The Marcus<br><span class="text-emerald-500">Protocol</span></h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-6 glass-card p-6 border-l-8 border-emerald-500">
+                            <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center font-black text-2xl text-white shrink-0">1</div>
+                            <p class="text-xl font-bold">Only <span class="text-emerald-400">Delta</span> or <span class="text-emerald-400">Alaska</span> for critical routes.</p>
+                        </li>
+                        <li class="flex items-center gap-6 glass-card p-6 border-l-8 border-emerald-500">
+                            <div class="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center font-black text-2xl text-white shrink-0">2</div>
+                            <p class="text-xl font-bold">Tue/Thu <span class="text-emerald-400">before 09:00 AM</span>.</p>
+                        </li>
+                        <li class="flex items-center gap-6 glass-card p-6 border-l-8 border-red-600">
+                            <div class="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center font-black text-2xl text-white shrink-0">3</div>
+                            <p class="text-xl font-bold">Avoid Frontier &amp; JetBlue for any connections.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-span-5 fade-up st-2 flex flex-col items-center">
+                    <svg class="w-full h-96 mb-8" viewBox="0 0 200 320" id="marcus-svg-8">
+                <g transform="translate(0, 0)">
+                    <rect x="90" y="80" width="20" height="30" fill="#f5c7a9" rx="10"></rect>
+                    <circle cx="100" cy="65" r="30" fill="#f5c7a9"></circle>
+                    <path d="M 70 70 Q 100 110 130 70 Q 130 95 100 100 Q 70 95 70 70" fill="#64748b"></path>
+                    <circle cx="88" cy="62" r="3" fill="#0f172a"></circle>
+                    <circle cx="112" cy="62" r="3" fill="#0f172a"></circle>
+                    <path d="M 92 80 Q 100 85 108 80" fill="none" stroke="#ca8a04" stroke-width="2"></path>
+                    <path d="M 85 95 L 115 95 L 125 300 L 75 300 Z" fill="#334155"></path>
+                    <path d="M 85 95 L 100 110 L 115 95 Z" fill="white"></path>
+                    <path d="M 96 110 L 104 110 L 108 170 L 100 180 L 92 170 Z" fill="#991b1b"></path>
+                </g></svg>
+                    <div class="text-center">
+                        <p class="text-emerald-400 uppercase tracking-[0.4em] font-black text-sm mb-2">RELIABILITY SECURED</p>
+                        <h4 class="text-4xl font-black">Marcus is Home.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Nav UI -->
+    <div class="fixed bottom-12 left-12 right-12 flex items-center gap-8 z-50">
+        <button onclick="changeSlide(-1)" class="nav-btn">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <div class="flex-grow flex gap-2" id="progress-bar"><div class="progress-segment"><div class="progress-fill" id="fill-1" style="width: 100%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-2" style="width: 100%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-3" style="width: 100%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-4" style="width: 100%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-5" style="width: 100%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-6" style="width: 100%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-7" style="width: 0%;"></div></div><div class="progress-segment"><div class="progress-fill" id="fill-8" style="width: 0%;"></div></div></div>
+        <button onclick="changeSlide(1)" class="nav-btn">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        const totalSlides = 8;
+        let currentSlide = 1;
+
+        function renderMarcus(id, state = 'happy') {
+            const svg = document.getElementById(id);
+            if (!svg) return;
+            const colorSkin = "#f5c7a9";
+            const colorSuit = "#334155";
+            let mouth = state === 'frustrated' ? '<path d="M 92 82 Q 100 75 108 82" fill="none" stroke="#ca8a04" stroke-width="2"/>' : '<path d="M 92 80 Q 100 85 108 80" fill="none" stroke="#ca8a04" stroke-width="2"/>';
+            svg.innerHTML = `
+                <g transform="translate(0, 0)">
+                    <rect x="90" y="80" width="20" height="30" fill="${colorSkin}" rx="10"/>
+                    <circle cx="100" cy="65" r="30" fill="${colorSkin}"/>
+                    <path d="M 70 70 Q 100 110 130 70 Q 130 95 100 100 Q 70 95 70 70" fill="#64748b"/>
+                    <circle cx="88" cy="62" r="3" fill="#0f172a"/>
+                    <circle cx="112" cy="62" r="3" fill="#0f172a"/>
+                    ${mouth}
+                    <path d="M 85 95 L 115 95 L 125 300 L 75 300 Z" fill="${colorSuit}"/>
+                    <path d="M 85 95 L 100 110 L 115 95 Z" fill="white"/>
+                    <path d="M 96 110 L 104 110 L 108 170 L 100 180 L 92 170 Z" fill="#991b1b"/>
+                </g>`;
+        }
+
+        function initHeatmap() {
+            const heatmap = document.getElementById('heatmap');
+            const data = [
+                [-2, -3, -1, -3, 2, 5, 8],
+                [1, 0, 2, 1, 4, 7, 9],
+                [3, 2, 4, 3, 6, 12, 14],
+                [5, 4, 6, 5, 9, 15, 17],
+                [8, 7, 9, 8, 12, 18, 19]
+            ];
+            const days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+            heatmap.innerHTML = '';
+            data.forEach((row, rIdx) => {
+                row.forEach((val, cIdx) => {
+                    const cell = document.createElement('div');
+                    cell.className = 'heatmap-cell';
+                    let bgColor;
+                    if (val < 0) bgColor = `rgba(16, 185, 129, ${Math.min(Math.abs(val)/10 + 0.3, 1)})`;
+                    else if (val < 5) bgColor = `rgba(251, 191, 36, ${Math.min(val/10 + 0.2, 0.8)})`;
+                    else bgColor = `rgba(220, 38, 38, ${Math.min(val/20 + 0.4, 1)})`;
+                    cell.style.backgroundColor = bgColor;
+                    cell.innerHTML = `<span class="val">${val > 0 ? `+${val}` : val}</span><span class="day-tag">${days[cIdx]}</span>`;
+                    heatmap.appendChild(cell);
+                });
+            });
+        }
+
+        function initProgressBar() {
+            const container = document.getElementById('progress-bar');
+            for(let i=1; i<=totalSlides; i++) {
+                const seg = document.createElement('div');
+                seg.className = 'progress-segment';
+                seg.innerHTML = `<div class="progress-fill" id="fill-${i}"></div>`;
+                container.appendChild(seg);
+            }
+        }
+
+        function updateProgress() {
+            for(let i=1; i<=totalSlides; i++) {
+                const fill = document.getElementById(`fill-${i}`);
+                if(fill) fill.style.width = (i <= currentSlide) ? '100%' : '0%';
+            }
+        }
+
+        function changeSlide(dir) {
+            const oldSlide = document.getElementById(`slide-${currentSlide}`);
+            currentSlide += dir;
+            if (currentSlide > totalSlides) currentSlide = 1;
+            if (currentSlide < 1) currentSlide = totalSlides;
+            const newSlide = document.getElementById(`slide-${currentSlide}`);
+            oldSlide.classList.remove('active');
+            newSlide.classList.add('active');
+            updateProgress();
+        }
+
+        function downloadCode() {
+            const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'marcus_aviation_protocol.html';
+            a.click();
+        }
+
+        window.onload = () => {
+            initProgressBar();
+            updateProgress();
+            initHeatmap();
+            renderMarcus('marcus-svg-1', 'frustrated');
+            renderMarcus('marcus-svg-8', 'happy');
+        };
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+    </script>
+
+</body></html>
